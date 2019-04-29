@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Text</th>
+      <th>Image</th>
+      <!-- <th>User</th> -->
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @notes.each do |note| %>
+    <% if session[:admin] == true %>
+      <tr>
+        <td><%= note.title %></td>
+        <td><%= note.text %></td>
+        <td><%= image_tag note.image.thumb.url %></td>
+        <!-- <td><%= note.user %></td> -->
+        <td><%= link_to 'Show', note %></td>
+        <td><%= link_to 'Edit', edit_note_path(note) %></td>
+        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <% if session[:admin] == false %>
+    <% if note.user.name == session[:user] %>
+      <tr>
+        <td><%= note.title %></td>
+        <td><%= note.text %></td>
+        <td><%= image_tag note.image.thumb.url %></td>
+        <!-- <td><%= note.user %></td> -->
+        <td><%= link_to 'Show', note %></td>
+        <td><%= link_to 'Edit', edit_note_path(note) %></td>
+        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <% end %>
+
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Note', new_note_path %>
