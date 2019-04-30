@@ -6,8 +6,35 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Friend</th>
 		</tr>
 	</thead>
+
+	<% @friendships.each do |friendship| %>
+		<% if session[:admin] == true %>
+      		<tr>
+        		<td><%= friendship.user.name %></td>
+				<td><%= friendship.friend.name %></td>
+      		</tr>
+      		<% else %>
+      			<% if friendship.user.name == session[:user] || friendship.friend.name == session[:user] %>
+      			<td><%= friendship.user.name %></td>
+				<td><%= friendship.friend.name %></td>
+				<% end %>
+    	<% end %>
+	<% end %>
+
 </table>
+
+<select>
+  	<% @users.each do |user| %>
+		<option value=user.name><%=user.name %></option>
+  	<% end %>
+ </select> 
+
+ <button type="button">Enviar Petision</button> 
+
+
+<br>
 
 <%= link_to 'Back', notes_path %>
