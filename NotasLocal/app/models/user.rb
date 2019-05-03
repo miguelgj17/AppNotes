@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-	has_many :notes
+	has_many :notes, dependent: :destroy
 	validates_uniqueness_of :name
 	has_many :friend_requests, dependent: :destroy
 	has_many :pending_friends, through: :friend_requests, source: :friend

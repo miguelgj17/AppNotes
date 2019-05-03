@@ -42,12 +42,19 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+
+      if @user.id == session[:user] || (session[:admin] == true)
+
+          if @user.update(update_params)
+            format.html { redirect_to @user, notice: 'User was successfully updated.' }
+            format.json { render :show, status: :ok, location: @user }
+          else
+            format.html { render :edit }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
       else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.html { redirect_to users_url, alert: 'You cannot edit another user' }
+          format.json { head :no_content }
       end
     end
   end
@@ -55,10 +62,15 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      if @user.id == session[:user] || (session[:admin] == true)
+          @user.destroy
+          format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+          format.json { head :no_content }
+      else
+          format.html { redirect_to users_url, alert: 'You cannot delete another user' }
+          format.json { head :no_content }
+      end
     end
   end
 
@@ -71,5 +83,8 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :password, :admin)
+    end
+    def update_params
+      params.require(:user).permit(:password, :admin)
     end
 end
