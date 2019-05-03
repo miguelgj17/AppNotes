@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate!
+  before_action :authenticate!, except: [:new, :create]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -27,7 +28,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
       if @user.save
-        session[:user] = @user.name
+        session[:user] = @user.id
+        session[:username] = @user.name
         session[:admin] = @user.admin
         redirect_to notes_url, :notice => "Logged in!"
       else

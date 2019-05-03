@@ -11,7 +11,7 @@ class SessionController < ApplicationController
         flash.now.alert = "username #{params[:username]} was invalid"
         render :new
       elsif @user.password == params[:password]
-        session[:user] = @user.name
+        session[:user] = @user.id
         session[:username] = @user.name
         session[:admin] = @user.admin
         redirect_to notes_url

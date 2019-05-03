@@ -1,9 +1,11 @@
 class NotesController < ApplicationController
   before_action :authenticate!
+  before_action :set_note, only: [:show, :edit, :update, :destroy]
 
   # GET /notes
   # GET /notes.json
   def index
+    #@notes = Note.where(:user_id => [session[:user],"0"])
     @notes = Note.all
   end
 
@@ -20,7 +22,7 @@ class NotesController < ApplicationController
   # GET /notes/1/edit
   def edit
   	@note = Note.find(params[:id])
-    if @note.user.name != session[:user]
+    if @note.user.id != session[:user]
       redirect_to notes_path, :alert => "You cannot edit another user’s note!"
     else
       @note = Note.find(params[:id])
@@ -31,7 +33,7 @@ class NotesController < ApplicationController
   # POST /notes.json
   def create
     @note = Note.new(note_params)
-    @note.user = User.find_by name: session[:user] 
+    @note.user = User.find_by name: session[:username] 
 
     respond_to do |format|
       if @note.save
@@ -62,7 +64,7 @@ class NotesController < ApplicationController
   # DELETE /notes/1.json
   def destroy
 
-  	if @note.user.name != session[:user]
+  	if @note.user.id != session[:user]
        redirect_to notes_path, :alert => "You cannot delete another user’s note!"
     else
       @note.destroy
