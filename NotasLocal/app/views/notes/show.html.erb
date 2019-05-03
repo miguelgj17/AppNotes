@@ -13,7 +13,8 @@
 <table>
   <tr><td>&nbsp;&nbsp;</td>
   	<td>
-  	<p><strong>User:</strong><%= @note.user_id %></p>
+    <p><strong>&nbsp;Title:</strong><%= @note.title %></p>
+  	<p><strong>User:</strong><%= @note.user.name %></p>
 	<p><strong>Text:</strong></p>
 		<textarea style ="background: transparent" cols="37" rows="4"><%= @note.text %></textarea>
 	<p><strong>&nbsp;&nbsp;Image:</strong>
@@ -21,7 +22,6 @@
         <%= image_tag @note.image.thumb.url %>
     <% end %>
   </p>
-	<p><strong>&nbsp;&nbsp;Title:</strong><%= @note.title %></p>
 	<br><br><br><br>
 	</td>
   </tr>
