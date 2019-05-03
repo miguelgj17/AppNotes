@@ -5,8 +5,11 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.json
   def index
-    #@notes = Note.where(:user_id => [session[:user],"0"])
-    @notes = Note.all
+    if([session[:admin] == true)
+      @notes = Note.all
+    else
+      @notes = Note.where(:user_id => [session[:user],"0"])
+    end
   end
 
   # GET /notes/1
