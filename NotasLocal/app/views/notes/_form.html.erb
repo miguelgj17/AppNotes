@@ -1,36 +1,50 @@
-<%= form_with(model: note, local: true) do |form| %>
-  <% if note.errors.any? %>
+<div class="row">
+  <div class="col-md-1">&nbsp;
+  </div>
+  <div class="col-md-7" style="background-image: url('../../postit.png'); background-repeat: no-repeat;">
+
+<%= form_for(@note) do |f| %>
+  <% if @note.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
 
       <ul>
-      <% note.errors.full_messages.each do |message| %>
+      <% @note.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
+<br><br><br>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :text %>
-    <%= form.text_area :text %>
-  </div>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field :image %>
-  </div>
-
-  <!-- <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div> -->
+<table>
+  <tr><td>&nbsp;&nbsp;</td>
+  <td colspan="2">
+    <div class="field">
+      <%= f.label :user_id %>&nbsp;
+      <%= f.label :user_id, :value => session[:username], :readonly => true,:style =>"background: transparent"%>
+    </div>
+    <div class="field" >
+     <%= f.label :text %><br>
+     <%= f.text_area :text, :style =>"background: transparent", :cols=>"37", :rows=>"4" %>
+    </div>
+  
+    <div class="field">
+      <%= f.label :image %><br>
+    </div>
+      <div class="field">
+        <%= f.file_field :image %><br>
+      &nbsp;&nbsp;<%= f.label :title %>&nbsp;<%= f.text_field :title, :style =>"background: transparent" %>
+    </div>
+  
+  </td></tr>
+  <tr><td></td><td></td><td align="right">
+  
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit :class=>"btn btn-success" %>
+    <br><br><br>
   </div>
+</td></tr></table>
 <% end %>
+</div>
+</div>

@@ -3,5 +3,11 @@ class ApplicationController < ActionController::Base
 		return unless session[:user]
 		@current_user ||= User.find_by name: session[:user]
 	end
+	protected
+		def authenticate!
+			if !session[:user]
+				redirect_to :root
+			end
+		end
 
 end

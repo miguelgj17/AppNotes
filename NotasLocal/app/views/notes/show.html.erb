@@ -1,24 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-12">
+	<p id="notice"><%= notice %></p>
+   </div>
+</div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @note.title %>
-</p>
+<div class="row">
+  <div class="col-md-1">&nbsp;
+  </div>
+  <div class="col-md-7" style="background-image: url('../../postit.png'); background-repeat: no-repeat;">
+<br><br><br>
 
-<p>
-  <strong>Text:</strong>
-  <%= @note.text %>
-</p>
+<table>
+  <tr><td>&nbsp;&nbsp;</td>
+  	<td>
+  	<p><strong>User:</strong><%= @note.user_id %></p>
+	<p><strong>Text:</strong></p>
+		<textarea style ="background: transparent" cols="37" rows="4"><%= @note.text %></textarea>
+	<p><strong>&nbsp;&nbsp;Image:</strong>
+    <% if @note.image.thumb.url %>
+        <%= image_tag @note.image.thumb.url %>
+    <% end %>
+  </p>
+	<p><strong>&nbsp;&nbsp;Title:</strong><%= @note.title %></p>
+	<br><br><br><br>
+	</td>
+  </tr>
+</table>
+  </div>
+</div>
 
-<p>
-  <strong>Image:</strong>
-  <%= @note.image %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @note.user.name %>
-</p>
-
-<%= link_to 'Edit', edit_note_path(@note) %> |
-<%= link_to 'Back', notes_path %>
+<div class="row">
+  <div class="col-md-12">
+	<%= link_to 'Edit', edit_note_path(@note) %> |
+	<%= link_to 'Back', notes_path %>
+  </div>
+</div>

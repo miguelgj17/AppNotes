@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate!
 
   # GET /notes
   # GET /notes.json
@@ -14,11 +14,7 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    if !session[:user]
-      redirect_to notes_path, :alert => "You have to log in to create a new note "
-    else  
       @note = Note.new
-    end
   end
 
   # GET /notes/1/edit

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate!
 
   # GET /users
   # GET /users.json
@@ -27,7 +27,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
       if @user.save
-        redirect_to root_url, :notice => "Signed up!"
+        session[:user] = @user.name
+        session[:admin] = @user.admin
+        redirect_to notes_url, :notice => "Logged in!"
       else
         render :new
       end

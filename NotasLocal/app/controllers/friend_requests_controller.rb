@@ -1,5 +1,5 @@
 class FriendRequestsController < ApplicationController
-  before_action :set_friend_request, except: [:index, :create]
+  before_action :authenticate!
 
   def create
     friend = User.find(params[:friend_id])
@@ -13,6 +13,7 @@ class FriendRequestsController < ApplicationController
   end
 
   def index
+
   	@incoming = FriendRequest.where(friend: current_user)
   	@outgoing = current_user.friend_requests
   end

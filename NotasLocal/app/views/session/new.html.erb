@@ -1,11 +1,20 @@
 <%= form_tag("/login", method: "post") do %>
-<div class="field">
-<%= label_tag :username %>
-<%= text_field_tag :username, params[:username] %>
-</div>
-<div class="field">
-<%= label_tag :password %>
-<%= password_field_tag :password, params[:password] %>
-</div>
-<div class="actions"><%= submit_tag "Log in" %></div>
+<div class="row">
+	<div class="col-md-1">&nbsp;
+  </div>
+  <div class="col-md-10" align="center">
+<table alingn="center" ><tr><td>
+  <div class="field">
+     <%= label_tag :username %>
+     <%= text_field_tag :username, params[:username] %>
+  </div>
+  <div class="field">
+     <%= label_tag :password %>&nbsp;
+ 	 <%= password_field_tag :password, params[:password] %>
+  </div>
+</td></tr>
+<tr><td align="center">  
+   <div class="actions"><%= submit_tag "Log in", :class=>"btn btn-info" %></div>
+</td></tr></table>
 <% end %>
+</div></div>
