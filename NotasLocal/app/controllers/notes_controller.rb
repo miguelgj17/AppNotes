@@ -24,7 +24,6 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
-  	@note = Note.find(params[:id])
     if @note.user.id = session[:user] || (session[:admin] == true)
       @note = Note.find(params[:id])
     else
