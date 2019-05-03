@@ -21,7 +21,7 @@
           </td></tr>
 
           <tr>
-            <td colspan="3" align="center"><%= note.user_id %><br>
+            <td colspan="3" align="center"><%= note.user.name %><br>
               <% if note.image.thumb.url %>
                 <%= image_tag note.image.thumb.url %>
               <% end %>

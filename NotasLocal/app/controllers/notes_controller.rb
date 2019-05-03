@@ -5,7 +5,7 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.json
   def index
-    if([session[:admin] == true)
+    if(session[:admin] == true)
       @notes = Note.all
     else
       @notes = Note.where(:user_id => [session[:user],"0"])
