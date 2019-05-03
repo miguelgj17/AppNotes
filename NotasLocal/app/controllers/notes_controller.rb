@@ -25,10 +25,11 @@ class NotesController < ApplicationController
   # GET /notes/1/edit
   def edit
   	@note = Note.find(params[:id])
-    if @note.user.id != session[:user]
-      redirect_to notes_path, :alert => "You cannot edit another user’s note!"
-    else
+    if @note.user.id = session[:user] || (session[:admin] == true)
       @note = Note.find(params[:id])
+    else
+      redirect_to notes_path, :alert => "You cannot edit another user’s note!"
+      
     end
   end
 
@@ -67,13 +68,17 @@ class NotesController < ApplicationController
   # DELETE /notes/1.json
   def destroy
 
-  	if @note.user.id != session[:user]
-       redirect_to notes_path, :alert => "You cannot delete another user’s note!"
-    else
+  	if @note.user.id = session[:user] || (session[:admin] == true)
       @note.destroy
       respond_to do |format|
         format.html { redirect_to notes_url, notice: 'Note was successfully destroyed.' }
         format.json { head :no_content }
+        end
+    else
+      respond_to do |format|
+        format.html { redirect_to notes_url, alert: 'You cannot delete another user’s note!' }
+        format.json { head :no_content }
+      
       end
     end  
   end
