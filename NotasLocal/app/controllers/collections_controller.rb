@@ -1,15 +1,24 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
 
+def create
+    @collection = Collection.new(collection_params)
+
+    respond_to do |format|
+      if @collection.save
+        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
+        format.json { render :show, status: :created, location: @collection }
+      else
+        format.html { render :new }
+        format.json { render json: @collection.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /collections
   # GET /collections.json
   def index
     @collections = Collection.all
-  end
-
-  # GET /collections/1
-  # GET /collections/1.json
-  def show
   end
 
   # GET /collections/new
@@ -23,19 +32,7 @@ class CollectionsController < ApplicationController
 
   # POST /collections
   # POST /collections.json
-  def create
-    @collection = Collection.new(collection_params)
-
-    respond_to do |format|
-      if @collection.save
-        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
-        format.json { render :show, status: :created, location: @collection }
-      else
-        format.html { render :new }
-        format.json { render json: @collection.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  
 
   # PATCH/PUT /collections/1
   # PATCH/PUT /collections/1.json
