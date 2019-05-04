@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :collection_notes
+  resources :collections
   get 'friends/index'
   get 'friends/destroy'
   resources :friend_requests
