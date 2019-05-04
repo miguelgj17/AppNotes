@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Send a Friend Request</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>User</th>
+		</tr>
+	</thead>
+
+
+	<% @myfriends.each do |mf| %>
+	<% @friends.each do |f| %>
+	<% @users.each do |u| %>
+
+			<tr>
+    			<td><%=mf.friend.name %></td>
+    		</tr>
+
+	<% end %>
+	<% end %>
+	<% end %>
+	
+
+</table>

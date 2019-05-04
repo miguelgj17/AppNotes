@@ -13,23 +13,21 @@
 	<% @friendships.each do |friendship| %>
 
     	<tr>
-        		<td><%= friendship.user.name %></td>
-				<td><%= friendship.friend.name %></td>
-      	</tr>
+    		<td><%=friendship.user.name %></td>
+    		<td><%=friendship.friend.name %></td>
+    	</tr>
 
 	<% end %>
 
 </table>
 
 <select>
-  	<% @users.each do |user| %>
+	<% @users.each do |user| %>
 		<option value=user.name><%=user.name %></option>
-  	<% end %>
- </select> 
+		<% end %>
+</select>
 
- <button type="button">Enviar Petision</button> 
-
-
+<button type="button"> <%= link_to 'Friend Request', friend_requests_path %> </button>
 <br>
 
 <%= link_to 'Back', notes_path %>

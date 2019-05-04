@@ -16,6 +16,9 @@ class FriendRequestsController < ApplicationController
 
   	@incoming = FriendRequest.where(friend: current_user)
   	@outgoing = current_user.friend_requests
+    @users = User.where("NOT id = ? ", session[:user])
+    @myfriends = Friendship.where("(user_id = ? OR friend_id = ?) ", session[:user], session[:user])
+    @friends = Friendship.where("(NOT user_id = ? AND NOT friend_id = ?) ", session[:user], session[:user])
   end
 
   def destroy
@@ -26,7 +29,7 @@ class FriendRequestsController < ApplicationController
   def update
   	@friend_request.accept
   	head :no_content
-
+  end
   
 
   private
