@@ -17,6 +17,8 @@ class FriendsController < ApplicationController
   	current_user.remove_friend(@friend)
   	head :no_content
   end
+  def create
+  end
 
   private
 

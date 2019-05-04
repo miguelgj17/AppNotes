@@ -22,7 +22,7 @@ class SessionController < ApplicationController
     end
 
   def destroy
-  	session[:user] = nil
+    session.destroy
   	redirect_to :root, :notice => "Logged out!"
   end
 end

@@ -3,11 +3,40 @@
 <h1>Send a Friend Request</h1>
 
 <table>
-	<thead>
-		<tr>
-			<th>User</th>
-		</tr>
-	</thead>
+	<thead><tr><th colspan="2">Quieren ser mis amigos</th></tr></thead>
+	<thead><tr><th>User</th><th>User</th></tr></thead>
+<% @incoming.each do |inc| %>
+	<tr>
+    			<td><%=inc.name %></td>
+    			<td></td>
+    </tr>
+<% end %>
+</table>
+
+<table>
+	<thead><tr><th colspan="2">Quiero ser su amigo</th></tr></thead>
+	<thead><tr><th>User</th><th>User</th></tr></thead>
+<% @outgoing.each do |outg| %>
+	<tr>
+    			<td><%=outg.name %></td>
+    			<td></td>
+    </tr>
+<% end %>
+</table>
+
+<table>
+	<thead><tr><th colspan="2">Nuevo amigo</th></tr></thead>
+	<thead><tr><th>User</th><th>User</th></tr></thead>
+	<% @users.each do |user| %>
+		<tr><td>
+			<%=user.name %>
+		</td>
+		<td>
+			<%= link_to 'Create', user, :friend_requests =>"btn btn-warning" %>
+				
+		</td></td><tr>
+	<% end %>
+</table>
 
 
 	<% @myfriends.each do |mf| %>
