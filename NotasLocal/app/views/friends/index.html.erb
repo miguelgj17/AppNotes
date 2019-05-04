@@ -11,17 +11,12 @@
 	</thead>
 
 	<% @friendships.each do |friendship| %>
-		<% if session[:admin] == true %>
-      		<tr>
+
+    	<tr>
         		<td><%= friendship.user.name %></td>
 				<td><%= friendship.friend.name %></td>
-      		</tr>
-      		<% else %>
-      			<% if friendship.user.name == session[:user] || friendship.friend.name == session[:user] %>
-      			<td><%= friendship.user.name %></td>
-				<td><%= friendship.friend.name %></td>
-				<% end %>
-    	<% end %>
+      	</tr>
+
 	<% end %>
 
 </table>
