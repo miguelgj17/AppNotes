@@ -1,6 +1,17 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
 
+# GET /collections
+  # GET /collections.json
+  def index
+    if(session[:admin] == true)
+      @collections = Collection.all
+    else
+      @collections = Collection.where(:user_id => [session[:user],"0"])
+    end
+  end
+
+
 def create
     @collection = Collection.new(collection_params)
 
@@ -15,12 +26,7 @@ def create
     end
   end
 
-  # GET /collections
-  # GET /collections.json
-  def index
-    @collections = Collection.all
-  end
-
+  
   # GET /collections/new
   def new
     @collection = Collection.new
@@ -51,11 +57,18 @@ def create
   # DELETE /collections/1
   # DELETE /collections/1.json
   def destroy
-    @collection.destroy
-    respond_to do |format|
-      format.html { redirect_to collections_url, notice: 'Collection was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if @collection.user_id = session[:user] || (session[:admin] == true)
+      @collection.destroy
+      respond_to do |format|
+        format.html { redirect_to collections_url, notice: 'Collection was successfully destroyed.' }
+        format.json { head :no_content }
+        end
+    else
+      respond_to do |format|
+        format.html { redirect_to collections_url, alert: 'You cannot delete another user’s collection!' }
+        format.json { head :no_content }
+      end
+    end  
   end
 
   private
@@ -66,6 +79,6 @@ def create
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:collectionid, :name, :user_id)
+      params.require(:collection).permit(:name, :user_id)
     end
 end

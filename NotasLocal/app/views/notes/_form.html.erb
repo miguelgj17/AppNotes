@@ -24,6 +24,12 @@
       <%= f.label :user_id %>&nbsp;
       <%= f.label :user_id, :value => session[:username], :readonly => true,:style =>"background: transparent"%>
     </div>
+
+    <div class ="field" >
+      <%= f.label :title %>&nbsp;
+      <%= f.text_field :title, :style =>"background: transparent" %>
+    </div>
+
     <div class="field" >
      <%= f.label :text %><br>
      <%= f.text_area :text, :style =>"background: transparent", :cols=>"37", :rows=>"4" %>
@@ -34,7 +40,7 @@
     </div>
       <div class="field">
         <%= f.file_field :image %><br>
-      &nbsp;&nbsp;<%= f.label :title %>&nbsp;<%= f.text_field :title, :style =>"background: transparent" %>
+      &nbsp;&nbsp;
     </div>
   
   </td></tr>
